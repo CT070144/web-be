@@ -26,8 +26,8 @@ public class NhanVienAPI {
 	buildErrorResUtil buildErrorResUtil;
 
 	@GetMapping(value = "/{idUser}")
-	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_EMPLOYEE') or hasRole('ROLE_STUDENT')")
 	public ResponseEntity<Object> getById(@PathVariable Integer idUser){
+		System.out.println("GET employee information");
 		try {
 			nhanVienDTO DTO = nvServ.getById(idUser);
 			return new ResponseEntity<>(DTO, HttpStatus.OK);
@@ -47,6 +47,7 @@ public class NhanVienAPI {
 												 @RequestParam(required = false, defaultValue = "10") int size){
 		try {
 			paginationResponseDTO<nhanVienDTO> DTO = nvServ.getAllNhanVien(params, page, size);
+
 			return new ResponseEntity<>(DTO, HttpStatus.OK);
 		} catch (Exception e) {
 			errorResponseDTO errorDTO = buildErrorResUtil.buildErrorRes(e, "An error occurred!");
@@ -61,7 +62,9 @@ public class NhanVienAPI {
 											   @RequestParam(value = "userName") String userName){
 		try {
 			nvServ.addNhanVien(file, nvReqDTO, userName);
+			System.out.println("Add successfully!");
 			return ResponseEntity.ok("Add successfully!");
+
 		} catch (IllegalArgumentException | DataIntegrityViolationException e) {
 				errorResponseDTO errorDTO = buildErrorResUtil.buildErrorRes(e, "Mã nhân viên hoặc tên đăng nhập đã tồn tại!");
 				return new ResponseEntity<>(errorDTO, HttpStatus.CONFLICT);

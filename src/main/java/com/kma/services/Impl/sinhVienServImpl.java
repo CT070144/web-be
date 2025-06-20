@@ -134,7 +134,7 @@ public class sinhVienServImpl implements sinhVienService {
     private User createUserForSV(String maSinhVien){
         // Mã hóa mật khẩu bằng BCrypt
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String encodedPassword = passwordEncoder.encode(maSinhVien);  // Mật khẩu sinh viên sẽ là mã SV của họ
+        String encodedPassword = passwordEncoder.encode("123");  // Mật khẩu sinh viên sẽ là mã SV của họ
 
         // Tạo user mới với username là mã sinh viên và mật khẩu đã mã hóa
         User user = new User();

@@ -192,8 +192,8 @@ public class WebSecurityConfig {
                                 String.format("%s/class/**", apiPrefix)).hasAnyRole(Role.ADMIN)
 
                         // Employee Authorization
-                        .requestMatchers(GET,
-                                String.format("%s/nhanvien/**", apiPrefix)).hasAnyRole(Role.ADMIN, Role.STUDENT, Role.EMPLOYEE)
+                       // .requestMatchers(GET,
+                      //  String.format("%s/nhanvien/**", apiPrefix)).hasAnyRole(Role.ADMIN, Role.STUDENT, Role.EMPLOYEE)
                         .requestMatchers(POST,
                                 String.format("%s/nhanvien/**", apiPrefix)).hasAnyRole(Role.ADMIN)
                         .requestMatchers(PUT,
@@ -229,7 +229,7 @@ public class WebSecurityConfig {
                                 String.format("%s/admin/**", userPrefix)).hasRole(Role.ADMIN)
                         .requestMatchers(PATCH,
                                 String.format("%s/*/username/**", userPrefix)).hasAnyRole(Role.ADMIN, Role.STUDENT, Role.EMPLOYEE)
-
+                        .requestMatchers(GET, "/api/nhanvien/**").permitAll()
                       //  .anyRequest().authenticated()
                 )
                 .exceptionHandling(exceptionHandling -> exceptionHandling
@@ -240,7 +240,8 @@ public class WebSecurityConfig {
                             response.getWriter().write("{\"error\": \"Access denied: " + accessDeniedException.getMessage() + "\"}");
                         })
                         // Xử lý 401 Unauthorized
-                        .authenticationEntryPoint((request, response, authException) -> {
+                        .authenticationEntryPoint((request, response, authException) ->
+                        {
                             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                             response.setContentType("application/json");
                             response.getWriter().write("{\"error\": \"Authentication required\"}");

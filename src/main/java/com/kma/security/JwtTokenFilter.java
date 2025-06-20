@@ -47,6 +47,11 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                 filterChain.doFilter(request, response); //enable bypass
                 return;
             }
+            String path = request.getRequestURI();
+            if (path.startsWith("/api/nhanvien/") && request.getMethod().equals("GET")) {
+                filterChain.doFilter(request, response);
+                return;
+            }
             final String authHeader = request.getHeader("Authorization");
             if (authHeader == null || !authHeader.startsWith("Bearer ")) {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
@@ -103,7 +108,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                 Pair.of("/downloadFile", "GET"),
                 Pair.of("/downloadProfile", "GET"),
                 Pair.of("/downloadDocs", "GET"),
-                Pair.of(String.format("%s/public", apiPrefix), "GET")
+                Pair.of(String.format("%s/public", apiPrefix), "GET"),
+                Pair.of("/api/nhanvien/*","GET")
 
         );
         for(Pair<String, String> bypassToken: bypassTokens) {

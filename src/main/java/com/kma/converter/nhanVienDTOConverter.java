@@ -66,6 +66,7 @@ public class nhanVienDTOConverter {
 
 	public void convertNVReqToNV(nhanVienRequestDTO nvReqDTO, NhanVien nv, String avaFileCode){
 		modelMapper.map(nvReqDTO, nv);
+
 		if(nvReqDTO.getGioiTinh()!= null){
 			nv.setGioiTinh(GioiTinh.fromDisplayName(nvReqDTO.getGioiTinh()));
 		}
@@ -75,6 +76,14 @@ public class nhanVienDTOConverter {
 			nv.setPhongBan(pb);
 		}else{
 			nv.setPhongBan(null);
+		}
+		String tenMonHoc = nvReqDTO.getMonGiangDayChinh();
+		if(tenMonHoc!=null&&!tenMonHoc.isEmpty()){
+			MonHoc mh = mhRepo.findByTenMonHoc(tenMonHoc);
+			nv.setIdMonGiangDayChinh(mh.getMonHocId());
+		}
+		else{
+			nv.setIdMonGiangDayChinh(null);
 		}
 		nv.setAvaFileCode(avaFileCode);
 	}

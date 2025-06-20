@@ -2,10 +2,12 @@ package com.kma.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.kma.repository.entities.PhongBan;
+import lombok.Data;
 
 import java.sql.Date;
 import java.util.List;
 
+@Data
 public class nhanVienDTO {
 	private Integer idUser;
 	private String tenNhanVien;
@@ -15,7 +17,7 @@ public class nhanVienDTO {
 	private Date ngaySinh;
 	private String gioiTinh;
 	private String dienThoai;
-	private String diaChi;
+	private String diaChiHienNay;
 	private phongBanResponseDTO phongBan;
 	private String chucVu;
 	private monHocResponseDTO monGiangDayChinh;
@@ -70,13 +72,7 @@ public class nhanVienDTO {
 		this.dienThoai = dienThoai;
 	}
 
-	public String getDiaChi() {
-		return diaChi;
-	}
 
-	public void setDiaChi(String diaChi) {
-		this.diaChi = diaChi;
-	}
 
 	public phongBanResponseDTO getPhongBan() {
 		return phongBan;

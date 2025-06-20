@@ -1,9 +1,11 @@
 package com.kma.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
 
 import java.sql.Date;
 
+@Data
 public class nhanVienRequestDTO {
 	private String maNhanVien;
 	private String tenNhanVien;
@@ -18,6 +20,7 @@ public class nhanVienRequestDTO {
 	private String noiCapCCCD;
 	private String diaChiCCCD;
 	private String diaChiHienNay;
+    private String monGiangDayChinh;
 	private String chucVu;
 	private String noiCongTac;
 	private String maSoThue;
