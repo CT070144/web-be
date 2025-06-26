@@ -72,9 +72,15 @@ public class SinhVienAPI {
 	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_EMPLOYEE')")
 	public ResponseEntity<Object> addSinhVien(@RequestParam(value = "file", required = false) MultipartFile file,
 											  @ModelAttribute sinhVienDTO svDTO){
+		System.out.println("ACCESS METHOD");
 		try {
-			svServ.addSinhVien(file, svDTO);
-			return ResponseEntity.ok("Add successfully!");
+			String message = svServ.addSinhVien(file, svDTO);
+			if(message == null ){
+			return ResponseEntity.ok("Add successfully!");}
+			else{
+				return ResponseEntity.status(400).body(message);
+			}
+
 		} catch (IllegalArgumentException | DataIntegrityViolationException e) {
 			errorResponseDTO errorDTO = buildErrorResUtil.buildErrorRes(e, "Student id already exists!");
 			return new ResponseEntity<>(errorDTO, HttpStatus.CONFLICT);
@@ -90,7 +96,7 @@ public class SinhVienAPI {
 												 @ModelAttribute sinhVienDTO svDTO,
 												 @RequestParam(value = "file", required = false) MultipartFile file) {
 		try {
-			svServ.updateSinhVien(maSinhVien.toUpperCase(), svDTO, file);
+			svServ.updateSinhVien(maSinhVien, svDTO, file);
 			return ResponseEntity.ok("Update successfully!");
 		} catch (IllegalArgumentException | DataIntegrityViolationException e) {
 			errorResponseDTO errorDTO = buildErrorResUtil.buildErrorRes(e, "Mã sinh viên hoặc CCCD đã tồn tại!");

@@ -1,9 +1,10 @@
 package com.kma.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
 
 import java.sql.Date;
-
+@Data
 public class sinhVienDTO {
 	private String maSinhVien;
 	private String tenSinhVien;

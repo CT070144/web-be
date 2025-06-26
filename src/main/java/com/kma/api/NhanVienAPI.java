@@ -80,6 +80,7 @@ public class NhanVienAPI {
 												 @ModelAttribute nhanVienRequestDTO nvReqDTO,
 												 @RequestParam(value = "file", required = false) MultipartFile file) {
 		try {
+			System.out.println(nvReqDTO.toString());
 			nvServ.updateNhanVien(idUser, nvReqDTO, file);
 			return ResponseEntity.ok("Update successfully!");
 		} catch (EntityNotFoundException e) {

@@ -39,7 +39,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http)  throws Exception{
         http
                 .csrf(AbstractHttpConfigurer::disable)
-//                .cors(AbstractHttpConfigurer::disable)
+               // .cors(AbstractHttpConfigurer::disable)
                 .cors(httpSecurityCorsConfigurer -> httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource()))
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(requests -> requests
@@ -230,6 +230,7 @@ public class WebSecurityConfig {
                         .requestMatchers(PATCH,
                                 String.format("%s/*/username/**", userPrefix)).hasAnyRole(Role.ADMIN, Role.STUDENT, Role.EMPLOYEE)
                         .requestMatchers(GET, "/api/nhanvien/**").permitAll()
+                                .requestMatchers(GET,"/api/training-programs/**").permitAll()
                       //  .anyRequest().authenticated()
                 )
                 .exceptionHandling(exceptionHandling -> exceptionHandling

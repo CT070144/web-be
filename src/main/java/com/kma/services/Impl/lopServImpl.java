@@ -42,7 +42,7 @@ public class lopServImpl implements lopService {
         Pageable pageable = PageRequest.of(page, size);
 
         // Lấy dữ liệu từ repository
-        Page<Lop> classPage = loprepo.findByAllCondition(tenLop, tenChuNhiem, pageable);
+        Page<Lop> classPage = loprepo.findByAllCondition("%" + tenLop + "%", pageable);
 
         // Convert to DTO
         List<lopDTO> lopDTOList = classPage.stream()

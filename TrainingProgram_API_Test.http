@@ -1,0 +1,105 @@
+### TrainingProgram API Tests
+
+### 1. Lấy tất cả chương trình đào tạo
+GET http://localhost:8080/api/training-programs
+Content-Type: application/json
+
+###
+
+### 2. Lấy thông tin chi tiết chương trình đào tạo theo ID
+GET http://localhost:8080/api/training-programs/1
+Content-Type: application/json
+
+###
+
+### 3. Lấy thông tin chi tiết chương trình đào tạo theo mã ngành
+GET http://localhost:8080/api/training-programs/code/7480107
+Content-Type: application/json
+
+###
+
+### 4. Tìm kiếm chương trình đào tạo
+GET http://localhost:8080/api/training-programs/search?keyword=AI
+Content-Type: application/json
+
+###
+
+### 5. Tạo chương trình đào tạo mới
+POST http://localhost:8080/api/training-programs
+Content-Type: application/json
+
+{
+  "name": "Khoa học dữ liệu",
+  "code": "7480106",
+  "duration": "4 năm",
+  "campus": "Hà Nội",
+  "admissionPeriod": "Mùa thu",
+  "overview": "Chương trình đào tạo chuyên sâu về khoa học dữ liệu, phân tích dữ liệu và machine learning.",
+  "imageUrl": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=250&fit=crop",
+  "domesticTuition": "25.000.000 VNĐ/năm",
+  "internationalTuition": "3.000 USD/năm",
+  "tuitionNotes": "Học phí có thể thay đổi theo quy định của Bộ Giáo dục và Đào tạo",
+  "requirements": [
+    "Tốt nghiệp THPT hoặc tương đương",
+    "Điểm chuẩn: 23-25 điểm (tùy năm)",
+    "Tổ hợp xét tuyển: A00, A01, D01, D07",
+    "Yêu cầu tiếng Anh: IELTS 5.5 hoặc tương đương",
+    "Sức khỏe tốt, không mắc các bệnh truyền nhiễm"
+  ],
+  "materials": [
+    "Giáo trình khoa học dữ liệu",
+    "Phần mềm phân tích dữ liệu",
+    "Tài liệu thực hành Python/R",
+    "Cơ sở dữ liệu và công cụ BI",
+    "Tài liệu tham khảo quốc tế"
+  ],
+  "careers": [
+    "Data Scientist",
+    "Data Analyst",
+    "Business Intelligence Analyst",
+    "Data Engineer",
+    "Machine Learning Engineer",
+    "Statistician",
+    "Research Analyst",
+    "Data Consultant"
+  ],
+  "outcomes": [
+    {
+      "id": "lo1",
+      "title": "LO1: Phân tích và xử lý dữ liệu hiệu quả.",
+      "content": "PI 1.1: Thu thập và làm sạch dữ liệu\nPI 1.2: Phân tích thống kê mô tả\nPI 1.3: Xây dựng mô hình dự đoán"
+    },
+    {
+      "id": "lo2",
+      "title": "LO2: Thiết kế và triển khai giải pháp khoa học dữ liệu.",
+      "content": "PI 2.1: Thiết kế pipeline xử lý dữ liệu\nPI 2.2: Triển khai mô hình machine learning\nPI 2.3: Đánh giá và tối ưu hóa hiệu suất"
+    }
+  ],
+  "isActive": true
+}
+
+###
+
+### 6. Cập nhật chương trình đào tạo
+PUT http://localhost:8080/api/training-programs/1
+Content-Type: application/json
+
+{
+  "name": "Trí tuệ nhân tạo (Cập nhật)",
+  "duration": "4.5 năm",
+  "overview": "Chương trình đào tạo cập nhật về trí tuệ nhân tạo với các công nghệ mới nhất."
+}
+
+###
+
+### 7. Vô hiệu hóa chương trình đào tạo
+PUT http://localhost:8080/api/training-programs/1/deactivate
+Content-Type: application/json
+
+###
+
+### 8. Xóa chương trình đào tạo
+DELETE http://localhost:8080/api/training-programs/1
+Content-Type: application/json
+
+### 

@@ -43,6 +43,7 @@ public class SinhVien {
     @Column(name = "khoa")
     private String khoa;
 
+
     @Column(name = "chucVu")
     private String chucVu;
 

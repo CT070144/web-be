@@ -13,9 +13,8 @@ public interface lopRepo extends JpaRepository<Lop, Integer> {
     boolean existsByTenLop(String tenLop);
 
     //JPQL
-    @Query("SELECT lop FROM Lop lop LEFT JOIN lop.chuNhiem cn " +
-            "WHERE lop.tenLop LIKE %:tenLop% " +
-            "AND cn.tenNhanVien LIKE %:tenChuNhiem% " +
+    @Query("SELECT lop FROM Lop lop " +
+            "WHERE lop.tenLop LIKE :tenLop " +
             "ORDER BY lop.tenLop ASC")
-    Page<Lop> findByAllCondition(@Param("tenLop") String tenLop, @Param("tenChuNhiem") String tenChuNhiem, Pageable pageable);
+    Page<Lop> findByAllCondition(@Param("tenLop") String tenLop, Pageable pageable);
 }

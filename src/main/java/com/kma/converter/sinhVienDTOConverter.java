@@ -49,7 +49,11 @@ public class sinhVienDTOConverter {
     }
 
     public void convertToSV(sinhVienDTO svDTO, SinhVien sv, String avaFileCode){
-        modelMapper.map(svDTO, sv);
+        sv.setMaSinhVien(svDTO.getMaSinhVien());
+        sv.setTenSinhVien(svDTO.getTenSinhVien());
+        sv.setNgaySinh(svDTO.getNgaySinh());
+        sv.setQueQuan(svDTO.getQueQuan());
+        sv.setKhoa(svDTO.getKhoa());
         if(svDTO.getGioiTinh()!= null){
             sv.setGioiTinh(GioiTinh.fromDisplayName(svDTO.getGioiTinh()));
         }
@@ -60,5 +64,6 @@ public class sinhVienDTOConverter {
             sv.setLop(null);
         }
         sv.setAvaFileCode(avaFileCode);
+        System.out.println("done");
     }
 }

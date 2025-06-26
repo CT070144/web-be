@@ -12,7 +12,7 @@ public interface sinhVienService {
 
     sinhVienDTO findById(String maSinhVien);
 
-    void addSinhVien(MultipartFile file,
+    String addSinhVien(MultipartFile file,
                      sinhVienDTO svDTO) throws IOException;
 
     void updateSinhVien(String maSinhVien,

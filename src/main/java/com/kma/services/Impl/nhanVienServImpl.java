@@ -135,7 +135,7 @@ public class nhanVienServImpl implements nhanVienService{
 			avaFileCode = fileServ.uploadFile(file, fileDirec);
 		}
 
-		User user = createUserForNV(userName);
+		User user = createUserForNV(nvReqDTO.getMaNhanVien());
 
 		// Tạo nhân viên để lưu
 		NhanVien nv = new NhanVien();
@@ -178,7 +178,7 @@ public class nhanVienServImpl implements nhanVienService{
 		if (nv == null) {
 			throw new EntityNotFoundException("Employee not found with id: " + idUser);
 		}
-
+		System.out.println("tìm thấy");
 		// xử lí file ava
 		String avaFileCode = nv.getAvaFileCode();
 		if(file!=null){

@@ -52,6 +52,11 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                 filterChain.doFilter(request, response);
                 return;
             }
+            if (path.startsWith("/api/training-programs") && request.getMethod().equals("GET")) {
+                filterChain.doFilter(request, response);
+                return;
+            }
+
             final String authHeader = request.getHeader("Authorization");
             if (authHeader == null || !authHeader.startsWith("Bearer ")) {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");

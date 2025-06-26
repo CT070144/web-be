@@ -106,10 +106,11 @@ public class sinhVienServImpl implements sinhVienService {
     }
 
     @Override
-    public void addSinhVien(MultipartFile file, sinhVienDTO svDTO) throws IOException {
+    public String addSinhVien(MultipartFile file, sinhVienDTO svDTO) throws IOException {
+        System.out.println(svDTO.getMaSinhVien());
         // Kiểm tra xem mã sinh viên tồn tại
         if(svRepo.existsById(svDTO.getMaSinhVien())){
-            throw new IllegalArgumentException("Mã sinh viên: " +svDTO.getMaSinhVien() + " đã tồn tại, vui lòng kiểm tra lại!");
+          return "Mã sinh viên đã tồn tại";
         }
 
         // Lưu avaFile, lấy avaFileCode
@@ -128,13 +129,14 @@ public class sinhVienServImpl implements sinhVienService {
         sv.setUser(user);
 
         svRepo.save(sv);
+        return null;
 
     }
 
     private User createUserForSV(String maSinhVien){
         // Mã hóa mật khẩu bằng BCrypt
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String encodedPassword = passwordEncoder.encode("123");  // Mật khẩu sinh viên sẽ là mã SV của họ
+        String encodedPassword = passwordEncoder.encode(maSinhVien);  // Mật khẩu sinh viên sẽ là mã SV của họ
 
         // Tạo user mới với username là mã sinh viên và mật khẩu đã mã hóa
         User user = new User();
@@ -157,6 +159,7 @@ public class sinhVienServImpl implements sinhVienService {
     public void updateSinhVien(String maSinhVien, sinhVienDTO svDTO, MultipartFile file) throws IOException {
         // Kiểm tra xem sinh viên tồn tại
         SinhVien sv = svRepo.findById(maSinhVien).orElse(null);
+        System.out.println(sv.getMaSinhVien());
         if(sv==null){
             throw new EntityNotFoundException("Student with id: " + svDTO.getMaSinhVien() + "not found!");
         }
