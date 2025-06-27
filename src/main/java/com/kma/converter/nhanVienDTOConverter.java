@@ -65,15 +65,22 @@ public class nhanVienDTOConverter {
 	}
 
 	public void convertNVReqToNV(nhanVienRequestDTO nvReqDTO, NhanVien nv, String avaFileCode){
-		modelMapper.map(nvReqDTO, nv);
+		nv.setMaNhanVien(nvReqDTO.getMaNhanVien());
+		nv.setNgaySinh(nvReqDTO.getNgaySinh());
+		nv.setDiaChiHienNay(nvReqDTO.getDiaChiHienNay());
+		nv.setTenNhanVien(nvReqDTO.getTenNhanVien());
+		nv.setDienThoai(nvReqDTO.getDienThoai());
+		nv.setChucVu(nvReqDTO.getChucVu());
 
 		if(nvReqDTO.getGioiTinh()!= null){
 			nv.setGioiTinh(GioiTinh.fromDisplayName(nvReqDTO.getGioiTinh()));
+			System.out.println("Done gender");
 		}
 		String maPhongBan = nvReqDTO.getMaPhongBan();
 		if(maPhongBan!=null && !maPhongBan.isEmpty()){
 			PhongBan pb = pbRepo.findById(maPhongBan).orElse(null);
 			nv.setPhongBan(pb);
+			System.out.println("Done department");
 		}else{
 			nv.setPhongBan(null);
 		}
@@ -81,10 +88,12 @@ public class nhanVienDTOConverter {
 		if(tenMonHoc!=null&&!tenMonHoc.isEmpty()){
 			MonHoc mh = mhRepo.findByTenMonHoc(tenMonHoc);
 			nv.setIdMonGiangDayChinh(mh.getMonHocId());
+			System.out.println("Done subject");
 		}
 		else{
 			nv.setIdMonGiangDayChinh(null);
 		}
 		nv.setAvaFileCode(avaFileCode);
+		System.out.println("Done profile");
 	}
 }

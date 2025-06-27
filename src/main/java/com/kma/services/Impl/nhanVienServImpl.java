@@ -182,11 +182,6 @@ public class nhanVienServImpl implements nhanVienService{
 		// xử lí file ava
 		String avaFileCode = nv.getAvaFileCode();
 		if(file!=null){
-			if(!avaFileCode.isEmpty()) {
-				// Xử lí xóa bỏ file cũ
-				fileServ.deleteFile(idUser, 4);
-			}
-
 			// Xử lí lưu avaFile mới
 			String fileDirec = fileDirection.pathForProfile_NV + "/" + nvReqDTO.getMaPhongBan() + "/" + nvReqDTO.getMaNhanVien();
 			avaFileCode = fileServ.uploadFile(file, fileDirec);
