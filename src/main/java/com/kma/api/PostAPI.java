@@ -125,4 +125,23 @@ public class PostAPI {
 			return new ResponseEntity<>(errorDTO, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
+	@GetMapping(value="/public/searchPost")
+	public ResponseEntity<Object> getPostsWithFilter(@ModelAttribute SearchPostRequest searchPostRequest){
+
+		try {
+			List<postResponseDTO> DTO = postServ.searchPost(searchPostRequest);
+			if(DTO.isEmpty()){
+				return new ResponseEntity<>("Không tìm thấy kết quả nào trùng khớp",HttpStatus.BAD_REQUEST);
+			}
+			return new ResponseEntity<>(DTO, HttpStatus.OK);
+		} catch (Exception e) {
+			errorResponseDTO errorDTO = buildErrorResUtil.buildErrorRes(e, "An error occurred!");
+			return new ResponseEntity<>(errorDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+
+
+
 }

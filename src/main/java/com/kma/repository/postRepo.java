@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.parameters.P;
 
 public interface postRepo extends JpaRepository<Post, Integer>, postRepoCustom {
 
@@ -24,4 +25,12 @@ public interface postRepo extends JpaRepository<Post, Integer>, postRepoCustom {
     Page<Post> findByNhanVien_IdUserOrderByCreateAtDesc(Integer authorId, Pageable pageable);
 
     boolean existsByPostIdAndNhanVien_IdUser(Integer postId, Integer authorId);
+
+    @Query("SELECT p FROM Post p LEFT JOIN p.nhanVien nv " +
+            "WHERE p.title LIKE %:title% " +
+            "OR p.content LIKE %:content% " +
+            "OR (nv.tenNhanVien LIKE %:authorName%) " +
+            "ORDER BY p.createAt DESC, p.postId DESC")
+    List<Post> findByCondition(@Param("title") String title, @Param("authorName") String authorName, @Param("content") String content);
+
 }

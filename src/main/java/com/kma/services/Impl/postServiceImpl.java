@@ -7,8 +7,7 @@ import java.util.stream.Collectors;
 
 import com.kma.constants.fileDirection;
 import com.kma.converter.postDTOConverter;
-import com.kma.models.paginationResponseDTO;
-import com.kma.models.postResponseDTO;
+import com.kma.models.*;
 import com.kma.repository.entities.User;
 import com.kma.repository.taiNguyenRepo;
 import com.kma.utilities.taiNguyenUtil;
@@ -21,8 +20,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.kma.models.postDTO;
-import com.kma.models.postRequestDTO;
 import com.kma.repository.postRepo;
 import com.kma.repository.entities.NhanVien;
 import com.kma.repository.entities.Post;
@@ -231,5 +228,18 @@ public class postServiceImpl implements postService{
 			throw new AccessDeniedException("You do not have permission to modify this post.");
 		}
 		return true;
+	}
+
+	@Override
+	public List<postResponseDTO> searchPost(SearchPostRequest searchPostRequest) {
+		List<Post> result = postRepo.findByCondition(searchPostRequest.getTitle(),searchPostRequest.getAuthorName(),searchPostRequest.getContent());
+		List<postResponseDTO> postResDTOList = new ArrayList<>();
+		if(!result.isEmpty()){
+		postResDTOList = result.stream()
+					.map(dtoConverter::convertToPostResDTO)
+					.toList();
+
+		}
+		return postResDTOList;
 	}
 }

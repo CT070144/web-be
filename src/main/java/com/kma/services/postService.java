@@ -27,4 +27,6 @@ public interface postService {
 	void deletePost(Integer post_id);
 
 	boolean isOwner(Integer discussionId, Integer userId);
+
+   List<postResponseDTO> searchPost(SearchPostRequest searchPostRequest);
 }
