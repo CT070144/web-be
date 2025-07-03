@@ -136,7 +136,7 @@ public class DiscussionAPI {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Object> updateDiscussionStatus(@RequestParam(value = "discussionId") List<Integer> discussionIds,
                                                          @RequestParam(value = "discussionStatus") String discussionStatus) {
-
+        System.out.println("hhhhhh");
         try {
             discussionServ.updateDiscussionStatus(discussionIds, discussionStatus);
             return ResponseEntity.ok("Update successfully!");
