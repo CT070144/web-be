@@ -68,7 +68,7 @@ public class AnswerAPI {
 
 
     @DeleteMapping(value = "/{discussionId}/answers/{answerId}")
-    @PreAuthorize("@answerServ.isOwner(#answerId, principal.userId) or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') or @answerServ.isOwner(#answerId, principal.userId)")
     public ResponseEntity<Object> deleteAnswer(@PathVariable Integer discussionId,
                                                @PathVariable Integer answerId) {
         try {

@@ -150,8 +150,10 @@ public class DiscussionAPI {
     }
 
     @DeleteMapping(value = "/discussions/{discussionId}")
-    @PreAuthorize("@discussionServ.isOwner(#discussionId, principal.userId) or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') or @discussionServ.isOwner(#discussionId, principal.userId)")
     public ResponseEntity<Object> deleteDiscussion(@PathVariable Integer discussionId) {
+
+        System.out.println("hhhhhh");
         try {
             discussionServ.deleteDiscussion(discussionId);
             return ResponseEntity.ok("Delete successfully!");

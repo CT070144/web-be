@@ -13,6 +13,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.sql.Date;
+
 
 @Component
 public class answerDTOConverter {
@@ -41,6 +43,7 @@ public class answerDTOConverter {
 
     public void convertToAnswer(Discussion discussion, Answer answer, answerRequestDTO answerReqDTO){
         modelMapper.map(answerReqDTO, answer);
+        answer.setCreateAt(new Date(System.currentTimeMillis()));
         answer.setDiscussion(discussion);
 
     }

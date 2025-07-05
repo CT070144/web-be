@@ -93,7 +93,7 @@ public class PostAPI {
 	}
 	
 	@PutMapping("/posts/{post_id}")
-	@PreAuthorize("@postServ.isOwner(#post_id, principal.nhanVien.idUser) or hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ROLE_ADMIN') or @postServ.isOwner(#post_id, principal.nhanVien.idUser)")
 	public ResponseEntity<Object> updatePost(@PathVariable Integer post_id, 
 											 @ModelAttribute postRequestDTO postRequestDTO,
 											 @RequestParam(value = "file", required = false) List<MultipartFile> files,
